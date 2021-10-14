@@ -5,22 +5,23 @@ var m = Object.getOwnPropertySymbols;
 var b = Object.prototype.hasOwnProperty,
   v = Object.prototype.propertyIsEnumerable;
 var y = (e, r, t) =>
-    r in e
-      ? k(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t })
-      : (e[r] = t),
+    r in e ? k(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : (e[r] = t),
   g = (e, r) => {
     for (var t in r || (r = {})) b.call(r, t) && y(e, t, r[t]);
     if (m) for (var t of m(r)) v.call(r, t) && y(e, t, r[t]);
+
     return e;
   },
   A = (e, r) => D(e, z(r));
 var S = (e, r) => {
   var t = {};
+
   for (var i in e) b.call(e, i) && r.indexOf(i) < 0 && (t[i] = e[i]);
-  if (e != null && m)
-    for (var i of m(e)) r.indexOf(i) < 0 && v.call(e, i) && (t[i] = e[i]);
+  if (e != null && m) for (var i of m(e)) r.indexOf(i) < 0 && v.call(e, i) && (t[i] = e[i]);
+
   return t;
 };
+
 import {
   u as N,
   j as s,
@@ -64,16 +65,17 @@ import {
 } from "./vendor.666b2de7.js";
 const ge = function () {
   const r = document.createElement("link").relList;
+
   if (r && r.supports && r.supports("modulepreload")) return;
   for (const o of document.querySelectorAll('link[rel="modulepreload"]')) i(o);
   new MutationObserver((o) => {
     for (const a of o)
       if (a.type === "childList")
-        for (const l of a.addedNodes)
-          l.tagName === "LINK" && l.rel === "modulepreload" && i(l);
+        for (const l of a.addedNodes) l.tagName === "LINK" && l.rel === "modulepreload" && i(l);
   }).observe(document, { childList: !0, subtree: !0 });
   function t(o) {
     const a = {};
+
     return (
       o.integrity && (a.integrity = o.integrity),
       o.referrerpolicy && (a.referrerPolicy = o.referrerpolicy),
@@ -89,12 +91,15 @@ const ge = function () {
     if (o.ep) return;
     o.ep = !0;
     const a = t(o);
+
     fetch(o.href, a);
   }
 };
+
 ge();
 const T = (e) => {
     let r;
+
     return (
       e.length < 1
         ? (r = "Se requiere este campo")
@@ -107,6 +112,7 @@ const T = (e) => {
       { children: e, label: r } = o,
       t = S(o, ["children", "label"]);
     const [a, l, M] = N(t);
+
     return s(R, {
       isInvalid: l.touched && l.error,
       children: [
@@ -199,10 +205,7 @@ const T = (e) => {
                       children: ["Minima temperatura ingresada: ", t.min],
                     }),
                     s(h, {
-                      children: [
-                        "Promedio de temperaturas ingresadas: ",
-                        t.average,
-                      ],
+                      children: ["Promedio de temperaturas ingresadas: ", t.average],
                     }),
                   ],
                 }),
@@ -223,17 +226,20 @@ const T = (e) => {
     handleMaxMin: (i) => {
       const o = Math.min(...i),
         a = Math.max(...i);
+
       return { min: o, max: a };
     },
     handleAverage: (i) => i.reduce((a, l) => a + l, 0) / i.length,
   }),
   x = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+
 function be() {
   const e = oe(),
     { isOpen: r, onOpen: t, onClose: i } = ie(),
     [o, a] = ae.exports.useState(),
     l = x.reduce((c, d) => ((c[`${d}Min`] = ""), c), {}),
     M = x.reduce((c, d) => ((c[`${d}Max`] = ""), c), {});
+
   return s(se, {
     py: 8,
     children: [
@@ -246,6 +252,7 @@ function be() {
               { handleMaxMin: C, handleAverage: L } = Me(),
               { min: j, max: E } = C(u),
               $ = L(u);
+
             a({ min: j, max: E, average: $ }), d(!1), t(), p();
           }, 400);
         },
@@ -299,7 +306,5 @@ const ve = me({
     },
   },
 });
-he.render(
-  n(pe, { theme: ve, children: n(be, {}) }),
-  document.getElementById("root")
-);
+
+he.render(n(pe, { theme: ve, children: n(be, {}) }), document.getElementById("root"));
